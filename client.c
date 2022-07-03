@@ -6,7 +6,7 @@
 /*   By: yaktas <yaktas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:30:16 by yaktas            #+#    #+#             */
-/*   Updated: 2022/07/03 09:44:42 by yaktas           ###   ########.fr       */
+/*   Updated: 2022/07/03 18:47:41 by yaktas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_atoi(char *str)
 	int a;
 
 	a = 0;
-
 	while(*str)
 	{
 		a = a * 10 + (*str - '0');
@@ -33,7 +32,7 @@ void	al_gulum(int pid, char *av)
 	i = 0;
 	while (av[i])
 	{	
-		if (pid == 45445)
+		if (pid == 4444)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
