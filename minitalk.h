@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaktas <yaktas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 18:08:34 by yaktas            #+#    #+#             */
-/*   Updated: 2022/07/03 08:27:32 by yaktas           ###   ########.fr       */
+/*   Created: 2022/07/02 15:04:31 by yaktas            #+#    #+#             */
+/*   Updated: 2022/07/03 09:17:50 by yaktas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#ifndef MINITALK_H
+# define MINITALK_H
 
-void	ft_vergulum(int s1)
-{
-	if (s1 == SIGUSR1)
-		write(1, "sig1", 4);
-	else
-		write(1, "sig2", 4);
-}
+#include <unistd.h>
+#include <stdio.h>
+#include <signal.h>
+#include <stdlib.h>
 
-int	main(void)
-{
-	printf("PID: %d\n", getpid());
-	signal(SIGUSR1, ft_vergulum);
-	signal(SIGUSR2, ft_vergulum);
-	while (1);
-	return (0);
-}
+#endif
+
