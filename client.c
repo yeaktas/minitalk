@@ -6,7 +6,7 @@
 /*   By: yaktas <yaktas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:30:16 by yaktas            #+#    #+#             */
-/*   Updated: 2022/07/03 18:47:41 by yaktas           ###   ########.fr       */
+/*   Updated: 2022/08/11 14:54:44 by yaktas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	ft_atoi(char *str)
 {
-	int a;
+	int	a;
 
 	a = 0;
-	while(*str)
+	while (*str)
 	{
 		a = a * 10 + (*str - '0');
 		str++;
@@ -25,26 +25,32 @@ int	ft_atoi(char *str)
 	return (a);
 }
 
-void	al_gulum(int pid, char *av)
+void	ft_sendbit(int pid, char *av)
 {
-	int i;
+	int	i;
 
-	i = 0;
-	while (av[i])
-	{	
-		if (pid == 4444)
-			kill(pid, SIGUSR1);
-		else
-			kill(pid, SIGUSR2);
-		i++;
-	}	
+	while (*av)
+	{
+		i = 8;
+		while (i--)
+		{
+			if ((*av >> i) & 1)
+				kill(pid, SIGUSR1);
+			else
+				kill(pid, SIGUSR2);
+			usleep(50);
+		}
+		av++;
+	}
 }
 
 int	main(int ac, char **av)
 {
 	if (ac > 3)
-		write(1, "khardesim kac tane sey yolluyorsun", 34);
+		write(1, "Too many arguments\n", 20);
+	else if (ac < 3)
+		write(1, "Missing arguments\n", 18);
 	else
-		al_gulum(ft_atoi(av[1]), av[2]);
+		ft_sendbit(ft_atoi(av[1]), av[2]);
 	return (0);
 }

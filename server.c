@@ -6,25 +6,66 @@
 /*   By: yaktas <yaktas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 18:08:34 by yaktas            #+#    #+#             */
-/*   Updated: 2022/07/03 18:46:01 by yaktas           ###   ########.fr       */
+/*   Updated: 2022/08/09 13:33:38 by yaktas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	ft_vergulum(int s1)
+int	ft_intlen(int a)
 {
-	if (s1 == SIGUSR1)
-		write(1, "sig1\n", 5);
-	else
-		write(1, "sig2\n", 5);
+	int	i;
+
+	i = 0;
+	while (a > 0)
+	{
+		a /= 10;
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_putnbr(int nbr)
+{
+	char	*m;
+	int		a;
+
+	a = ft_intlen(nbr);
+	m = (char *)malloc(sizeof(char) * (a + 1));
+	m[a] = '\0';
+	while (a > 0)
+	{
+		m[a - 1] = nbr % 10 + '0';
+		nbr /= 10;
+		a--;
+	}
+	return (m);
+}
+
+void	ft_handle(int sig)
+{
+	static int	a = 128;
+	static char	c;
+
+	if (sig == SIGUSR1)
+		c += a;
+	a = a / 2;
+	if (a == 0)
+	{
+		write(1, &c, 1);
+		a = 128;
+		c = 0;
+	}
 }
 
 int	main(void)
 {
-	printf("PID: %d\n", getpid());
-	signal(SIGUSR1, ft_vergulum);
-	signal(SIGUSR2, ft_vergulum);
-	while (1);
+	write(1, "PID:", 4);
+	write(1, ft_putnbr(getpid()), ft_intlen(getpid()));
+	write(1, "\n", 1);
+	signal(SIGUSR1, ft_handle);
+	signal(SIGUSR2, ft_handle);
+	while (1)
+		pause();
 	return (0);
 }
